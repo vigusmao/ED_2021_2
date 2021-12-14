@@ -6,6 +6,7 @@ from time import time
 
 
 ## tempo de pior caso = O(n^2)
+## tempo de melhor caso = O(1)
 ## espaço = O(1)
 def encontrarMenorDiferenca(elementos):
 
@@ -21,14 +22,15 @@ def encontrarMenorDiferenca(elementos):
             diferenca = abs(x - y) # O(1)
             if menorDiferenca == None or diferenca < menorDiferenca:
                 menorDiferenca = diferenca    # O(1)
-            #if diferenca == 0:
-            #    return 0
+            if diferenca == 0:
+                return 0
             # bloco B --> tempo constante    
 
     return menorDiferenca            
         
 
 ## tempo de pior caso = O(n log n)
+## tempo de melhor caso = O(n log n)
 ## espaço = O(n)
 def encontrarMenorDiferencaOrdenando(elementos):
 
@@ -43,8 +45,8 @@ def encontrarMenorDiferencaOrdenando(elementos):
         diferenca = abs(x - y) # O(1)
         if menorDiferenca == None or diferenca < menorDiferenca:
             menorDiferenca = diferenca    # O(1)
-        #if diferenca == 0:
-        #    return 0
+        if diferenca == 0:
+            return 0
 
     return menorDiferenca            
        
