@@ -117,6 +117,18 @@ public class ListaEncadeada<T> {
         return remove(this.primeiro);
     }
 
+    public T removerDoFim() {
+        return remove(this.ultimo);
+    }
+
+    public T consultarPrimeiro() {
+        return this.primeiro.valor;
+    }
+
+    public T consultarUltimo() {
+        return this.ultimo.valor;
+    }
+
     private No encontrarNo(T valor) {
         No noCorrente = this.primeiro;
 

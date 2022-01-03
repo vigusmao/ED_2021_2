@@ -1,30 +1,21 @@
-public class FilaUsandoListaEncadeada implements Fila {
+public class PilhaUsandoListaEncadeada<T> implements Pilha<T> {
 
-    private ListaEncadeada<Integer> listaEncadeada;
+    private ListaEncadeada<T> listaEncadeada;
 
-    public FilaUsandoListaEncadeada() {
+    public PilhaUsandoListaEncadeada() {
         this.listaEncadeada = new ListaEncadeada<>();
     }
 
-    /**
-     * Acrescenta um elemento (no caso, um inteiro) no final da fila
-     *
-     * @param numero O inteiro desejado, que entrará no finaldafila
-     */
-    public void colocarAtras(int numero) {
+    public void empilhar(T numero) {
         this.listaEncadeada.add(numero);
     }
 
-    /**
-     * Retorna o primeiro elemento da fila, que é o mais antigo
-     * e, portanto, o próximo a ser tratado
-     */
-    public int removerDaFrente() {  // pop()
-        return this.listaEncadeada.removerDoComeco();
+    public T desempilhar() {  // pop()
+        return this.listaEncadeada.removerDoFim();
     }
 
-    public int consultarDaFrente() {  // peek()
-        return this.listaEncadeada.get(0);
+    public T consultarTopo() {  // peek()
+        return this.listaEncadeada.consultarUltimo();
     }
 
     public int getTamanho() {

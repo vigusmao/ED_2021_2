@@ -1,10 +1,24 @@
-public interface Fila {
+public interface Pilha<T> {
 
-    void colocarAtras(int numero);
+    /**
+     * Acrescenta um elemento no topo da pilha
+     *
+     * @param elemento O elemento que será empilhado
+     */
+    void empilhar(T elemento);
 
-    int consultarDaFrente();
+    /**
+     * Retorna o elemento que está no topo da pilha, removendo-o
+     */
+    T desempilhar();
 
-    int removerDaFrente();
+    /**
+     * Retorna o elemento que está no topo da pilha, sem removê-lo
+     */
+    T consultarTopo();
 
+    /**
+     * @return a quantidade de elementos na pilha
+     */
     int getTamanho();
 }

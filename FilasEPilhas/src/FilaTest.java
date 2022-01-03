@@ -9,7 +9,7 @@ public class FilaTest {
 
     @Before
     public void setUp() {
-        fila = new FilaUsandoArrayDeFormaCircular();
+        fila = new FilaUsandoArray();
     }
 
     @Test
@@ -41,7 +41,7 @@ public class FilaTest {
 
     @Test
     public void testarMuitasRemocoes() {
-        final int TAMANHO = 2000000;
+        final int TAMANHO = 200_000;
 
         long inicio = System.currentTimeMillis();
         for (int i = 0; i < TAMANHO; i++) {

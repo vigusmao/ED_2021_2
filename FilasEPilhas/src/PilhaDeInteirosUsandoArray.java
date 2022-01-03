@@ -1,4 +1,4 @@
-public class PilhaUsandoArray implements Pilha {
+public class PilhaDeInteirosUsandoArray implements Pilha<Integer> {
 
     private final int TAMANHO_INICIAL_DEFAULT = 10;
 
@@ -6,12 +6,12 @@ public class PilhaUsandoArray implements Pilha {
 
     private int tamanhoLogico;
 
-    public PilhaUsandoArray() {
+    public PilhaDeInteirosUsandoArray() {
         this.arrayInterno = new int[TAMANHO_INICIAL_DEFAULT];
         this.tamanhoLogico = 0;
     }
 
-    public void empilhar(int numero) {
+    public void empilhar(Integer numero) {
         if (this.arrayInterno.length == this.tamanhoLogico) {
             // overflow --- precisamos de um array maior
             int[] novoArrayInterno = new int[2 * this.arrayInterno.length];
@@ -23,11 +23,11 @@ public class PilhaUsandoArray implements Pilha {
         this.arrayInterno[this.tamanhoLogico++] = numero;
     }
 
-    public int desempilhar() {
+    public Integer desempilhar() {
         return this.arrayInterno[--this.tamanhoLogico];
     }
 
-    public int consultarTopo() {  // peek()
+    public Integer consultarTopo() {  // peek()
         if (this.tamanhoLogico == 0) {
             // underflow
             throw new RuntimeException("Underflow!!");

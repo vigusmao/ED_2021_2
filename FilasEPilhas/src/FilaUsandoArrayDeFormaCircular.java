@@ -1,14 +1,27 @@
-public class FilaUsandoArray implements Fila {
+public class FilaUsandoArrayDeFormaCircular implements Fila {
 
     private final int TAMANHO_INICIAL_DEFAULT = 10;
 
     private int[] arrayInterno;
 
+    private int posPrimeiro;  // head  (posiçãodo primeiro elemento)
+    private int posUltimo;   // tail
+
     private int tamanhoLogico;
 
-    public FilaUsandoArray() {
-        this.arrayInterno = new int[TAMANHO_INICIAL_DEFAULT];
+    public FilaUsandoArrayDeFormaCircular(int capacidadeInicial) {
+        inicializar(capacidadeInicial);
+    }
+
+    public FilaUsandoArrayDeFormaCircular() {
+        inicializar(TAMANHO_INICIAL_DEFAULT);
+    }
+
+    private void inicializar(int capacidadeInicial) {
+        this.arrayInterno = new int[capacidadeInicial];
         this.tamanhoLogico = 0;
+        this.posPrimeiro = -1;
+        this.posUltimo = -1;
     }
 
     /**
@@ -17,15 +30,28 @@ public class FilaUsandoArray implements Fila {
      * @param numero O inteiro desejado, que entrará no finaldafila
      */
     public void colocarAtras(int numero) {
+
         if (this.arrayInterno.length == this.tamanhoLogico) {
             // overflow --- precisamos de um array maior
             int[] novoArrayInterno = new int[2 * this.arrayInterno.length];
-            for (int i = 0; i < this.arrayInterno.length; i++) {
-                novoArrayInterno[i] = this.arrayInterno[i];
+            int contCopiados = 0;
+            for (int i = this.posPrimeiro; i != this.posUltimo;
+                 i = (i + 1) % this.arrayInterno.length) {
+                novoArrayInterno[contCopiados++] = this.arrayInterno[i];
             }
+            novoArrayInterno[contCopiados++] = this.arrayInterno[this.posUltimo];
+
             this.arrayInterno = novoArrayInterno;
+
+            this.posPrimeiro = 0;
+            this.posUltimo = contCopiados - 1;
         }
-        this.arrayInterno[this.tamanhoLogico] = numero;
+
+        this.posUltimo = (this.posUltimo + 1) % this.arrayInterno.length;
+        this.arrayInterno[this.posUltimo] = numero;
+        if (tamanhoLogico == 0) {  // acabamos de inserir o primeiro elemento
+            this.posPrimeiro = this.posUltimo;
+        }
         this.tamanhoLogico++;
     }
 
@@ -38,12 +64,7 @@ public class FilaUsandoArray implements Fila {
             // underflow
             throw new RuntimeException("Underflow!!");
         }
-        int primeiro = this.arrayInterno[0];
-
-        // "a fila anda": shift left dos outros ---> O(n)
-        for (int i = 1; i < this.tamanhoLogico; i++) {
-            this.arrayInterno[i - 1] = this.arrayInterno[i];
-        }
+        int primeiro = this.arrayInterno[this.posPrimeiro++];
 
         this.tamanhoLogico--;
 
@@ -55,7 +76,7 @@ public class FilaUsandoArray implements Fila {
             // underflow
             throw new RuntimeException("Underflow!!");
         }
-        return this.arrayInterno[0];
+        return this.arrayInterno[this.posPrimeiro];
     }
 
     public int getTamanho() {
