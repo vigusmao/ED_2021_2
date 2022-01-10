@@ -65,7 +65,7 @@ public class VerificarParentizacao {
         }
         return x * fatorial(x - 1);
      }
-  
+
 
 
 
