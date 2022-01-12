@@ -1,4 +1,4 @@
-public class ArvoreBinaria<T> {
+public class ArvoreBinaria<T extends Comparable<T>> {
 
     private NoArvoreBinaria<T> raiz;
 
@@ -10,10 +10,11 @@ public class ArvoreBinaria<T> {
         this.raiz = raiz;
     }
 
-    public void percorraEmPreOrdem() {
+    public boolean percorraEmPreOrdem() {
         if (this.raiz != null) {
-            this.raiz.preOrdem();
+            return this.raiz.preOrdem();
         }
+        return true;
     }
 
     public void percorraEmIntraOrdem() {
@@ -28,7 +29,12 @@ public class ArvoreBinaria<T> {
         }
     }
 
-    public void printarTodosOsNiveis() {
-        percorraEmPreOrdem();
+    public void encontrarMenorEMaiorDeCadaSubarvore() {
+        percorraEmPosOrdem();
+    }
+
+    public boolean ehArvoreBinariaDeBusca() {
+        encontrarMenorEMaiorDeCadaSubarvore();  // O(n)
+        return percorraEmPreOrdem();  // O(n)
     }
 }
