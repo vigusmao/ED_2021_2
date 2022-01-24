@@ -1,0 +1,117 @@
+Q1: 
+
+a) F, V, V, V
+
+b) Theta(n^3), 
+    Theta(n^2 log n),
+    Theta(n)
+    Theta(n^2.5)
+
+
+Q2: 
+ 
+a)  2^k é a maior potência de 2
+     que é menor do que N
+     1 + 2 + 4 + 8 + 16 + … + 2^k =
+    = 2^(k+1) - 1
+    = 2. 2^k - 1 < 2N - 1                                 N = 1       total = 0
+    = O(N)N = 2      total = 1   
+                                                                     N = 3      total = 3
+                                                                     N = 4      total = 3
+                                                                     N = 5      total = 7
+                                                                     N = 6      total = 7
+                                                                     N = 7      total = 7
+                                                                     N = 8      total = 7
+                                                                     N = 9      total = 15
+ 
+b) N + N + N + N + …                                
+    num total de O(log(N)) parcelas
+    = O(N log N)                                                       
+
+
+Q3: - elementos estão ordenados na lista
+       - implementação da lista linear precisa ser sequencial
+          (array!) 
+
+Q4: - Criar um atributo inteiro “tamanho” que mantenha, 
+        sempre atualizado, o tamanho da lista. Esse atributo
+        começa em zero (lista vazia) e é incrementado/
+       decrementado a cada inserção/remoção. No caso de uma 
+       concatenação com outra lista, precisaremos somar o 
+       tamanho da lista que foi concatenada. 
+
+Q5:
+
+	a)                                 8
+                                      /       \
+                                 -14         28
+                                /     \       /     \
+                             -24    -4  18     38
+
+                 Resposta: -4
+
+ 	b)      -24, -14, -4, 8, 18, 28, 38
+
+
+Q6:   Para cada elemento da fila, eu o empilharia, de forma que, 
+        após ter percorrido toda a fila, a sequência de        
+        elementos na pilha (do topo para o fundo) corresponda
+        à sequência inversa da fila. Bastaria então comparar os
+        elementos da fila e da pilha, na ordem de remoção 
+        própria dessas estruturas (removendo sempre o primeiro
+        da fila e o topo da pilha). Se as sequências 
+       corresponderem, é palíndromo; senão, não é.
+        PS.: Quando estiver removendo da fila para empilhar, 
+       acrescenta novamente o elemento no fim da fila, para que,
+       no final (após “tamanho da fila” iterações), tenhamos 
+       novamente a fila original.             
+
+	  OU
+
+	Percorremos a primeira metade da fila, empilhando cada
+     elemento. Ao percorrer a segunda metade da fila,
+     comparamos cada elemento com o topo da pilha, 
+     desempilhando. Se a comparação falhar em algum momento,
+    não é palíndromo; caso contrário, é. 
+     PS.: Se a quantidade de elementos da fila for ímpar,
+    o elemento central não deve ser empilhado; nós apenas
+    o bypassamos.
+
+Q7:
+    a) 
+         - pós ordem
+         - visitar um nó x corresponderia a…
+                x.descendentes = 
+                         (x.esq != null ? x.esq.descendentes + 1 : 0) +
+                         (x.dir != null ? x.dir.descendentes + 1 : 0)
+				
+                OU (em linguagem natural)
+            
+           …anotar o número de descendentes do nó x,
+                que seria igual ao 
+                número de descendentes de seu
+                filho esquerdo mais um (caso haja filho esquerdo)
+                mais
+               o número de descendentes de seu
+               filho direito mais um (caso haja filho direito)
+
+	b) - pré-ordem
+         - visitar um nó x corresponderia a…
+                 x.maiorValorAteARaiz = 
+                     x.pai == null 
+                                ? x.valor 
+                                : max(x.valor, x.pai.maiorValorAteARaiz)
+			
+              OU (em linguagem natural)
+           
+        …comparar o valor do nó x com o maior valor entre
+              seu pai e a raiz (já devidamente calculado, por ser
+             um percurso em pré-ordem); caso não tenha pai,
+             o maior valor será o valor do próprio nó
+             (que é o caso da raiz, apenas)
+
+
+
+
+
+
