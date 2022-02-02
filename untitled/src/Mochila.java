@@ -2,8 +2,7 @@ import java.util.*;
 
 public class Mochila {
 
-//    private static Map<IdInstancia, Integer> memo;
-    private static List<List<Integer>> memo;
+    private static Map<IdInstancia, Integer> memo;
 
     private static int totalChamadas;
     /**
@@ -115,9 +114,6 @@ public class Mochila {
             return 0;
         }
 
-//        // objeto que identifica a instância deste (sub-)problema
-//        IdInstancia idInstancia = new IdInstancia(capacidade, indiceComeco);
-
         // MEMOIZAÇÃO, PASSO 1: verificar se já existe a resposta
         Integer resultadoArmazenado = lerDoMemo(capacidade, indiceComeco);
         if (resultadoArmazenado != null) {
@@ -157,32 +153,15 @@ public class Mochila {
     }
 
     private static void inicializarMemo(int n, int w) {
-        memo = new ArrayList<>();
-        for (int idxLinha = 0; idxLinha <= w; idxLinha++) {
-            List<Integer> linha = new ArrayList<>();
-            for (int idxColuna = 0; idxColuna <= n-1; idxColuna++) {
-                linha.add(null);
-            }
-            memo.add(linha);
-        }
+        memo = new HashMap<>();
     }
 
     private static Integer lerDoMemo(int linha, int coluna) {
-        if (linha < 0 || linha >= memo.size() ||
-                coluna < 0 || coluna >= memo.get(linha).size()) {
-            return null;
-        }
-
-        return memo.get(linha).get(coluna);
+        return memo.get(new IdInstancia(linha, coluna));
     }
 
     private static void escreverNoMemo(int linha, int coluna, int valor) {
-        if (linha < 0 || linha >= memo.size() ||
-                coluna < 0 || coluna >= memo.get(linha).size()) {
-            return;
-        }
-
-        memo.get(linha).set(coluna, valor);
+        memo.put(new IdInstancia(linha, coluna), valor);
     }
 
     /**
@@ -206,6 +185,7 @@ public class Mochila {
     private static class IdInstancia {
         int capacidade;
         int indiceInicial;
+
 
         public IdInstancia(int capacidade, int indiceInicial) {
             this.capacidade = capacidade;
