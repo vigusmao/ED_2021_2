@@ -1,11 +1,9 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Mochila {
 
-    private static Map<IdInstancia, Integer> memo;
+//    private static Map<IdInstancia, Integer> memo;
+    private static List<List<Integer>> memo;
 
     private static int totalChamadas;
     /**
@@ -92,7 +90,9 @@ public class Mochila {
 
     public static int resolverMochila(List<ValorEPeso> itens,
                                       int w) {
-        memo = new HashMap<>();
+//        memo = new HashMap<>();
+        inicializarMemo(itens.size(), w);
+
         totalChamadas = 0;
 
         // dispara a chamada inicial à função recursiva ("top")
@@ -115,11 +115,11 @@ public class Mochila {
             return 0;
         }
 
-        // objeto que identifica a instância deste (sub-)problema
-        IdInstancia idInstancia = new IdInstancia(capacidade, indiceComeco);
+//        // objeto que identifica a instância deste (sub-)problema
+//        IdInstancia idInstancia = new IdInstancia(capacidade, indiceComeco);
 
         // MEMOIZAÇÃO, PASSO 1: verificar se já existe a resposta
-        Integer resultadoArmazenado = memo.get(idInstancia);
+        Integer resultadoArmazenado = lerDoMemo(capacidade, indiceComeco);
         if (resultadoArmazenado != null) {
             return resultadoArmazenado;
         }
@@ -151,9 +151,38 @@ public class Mochila {
 
         // MEMOIZAÇÃO, passo 2: armazene o resultado que vc
         //                      acabou de calcular!
-        memo.put(idInstancia, resultado);
+        escreverNoMemo(capacidade, indiceComeco, resultado);
 
         return resultado;
+    }
+
+    private static void inicializarMemo(int n, int w) {
+        memo = new ArrayList<>();
+        for (int idxLinha = 0; idxLinha <= w; idxLinha++) {
+            List<Integer> linha = new ArrayList<>();
+            for (int idxColuna = 0; idxColuna <= n-1; idxColuna++) {
+                linha.add(null);
+            }
+            memo.add(linha);
+        }
+    }
+
+    private static Integer lerDoMemo(int linha, int coluna) {
+        if (linha < 0 || linha >= memo.size() ||
+                coluna < 0 || coluna >= memo.get(linha).size()) {
+            return null;
+        }
+
+        return memo.get(linha).get(coluna);
+    }
+
+    private static void escreverNoMemo(int linha, int coluna, int valor) {
+        if (linha < 0 || linha >= memo.size() ||
+                coluna < 0 || coluna >= memo.get(linha).size()) {
+            return;
+        }
+
+        memo.get(linha).set(coluna, valor);
     }
 
     /**
